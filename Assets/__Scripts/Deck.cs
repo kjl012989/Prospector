@@ -59,8 +59,7 @@ public class Deck : MonoBehaviour {
 
 
 	// ReadDeck parses the XML file passed to it into Card Definitions
-	public void ReadDeck(string deckXMLText)
-	{
+	public void ReadDeck(string deckXMLText){
 		xmlr = new PT_XMLReader ();
 		xmlr.Parse (deckXMLText);
 
@@ -70,7 +69,7 @@ public class Deck : MonoBehaviour {
 		s += " x=" + xmlr.xml ["xml"] [0] ["decorator"] [0].att ("x");
 		s += " y=" + xmlr.xml ["xml"] [0] ["decorator"] [0].att ("y");
 		s += " scale=" + xmlr.xml ["xml"] [0] ["decorator"] [0].att ("scale");
-		print (s);
+		//print (s);
 		
 		//Read decorators for all cards
 		// these are the small numbers/suits in the corners
@@ -235,7 +234,18 @@ public class Deck : MonoBehaviour {
 				tGO.transform.localPosition = Vector3.zero;  // slap it smack dab in the middle
 				tGO.name = "face";
 			}
-			
+
+			tGO = Instantiate(prefabSprite) as GameObject;
+			tSR = tGO.GetComponent<SpriteRenderer>();
+			tSR.sprite = cardBack;
+			tGO.transform.parent = card.transform;
+			tGO.transform.localPosition = Vector3.zero;
+			tSR.sortingOrder = 2;
+			tGO.name = "back";
+			card.back = tGO;
+
+			card.faceUp = false;
+
 			cards.Add (card);
 		} // for all the Cardnames	
 	} // makeCards
@@ -249,5 +259,16 @@ public class Deck : MonoBehaviour {
 		}//foreach	
 		return (null);  // couldn't find the sprite (should never reach this line)
 	 }// getFace 
-	
+
+	static public void Shuffle(ref List<Card> oCards){
+		List<Card> tCards = new List<Card>();
+		int ndx;
+		tCards = new List<Card>();
+		while(oCards.Count > 0){
+			ndx = Random.Range(0, oCards.Count);
+			tCards.Add (oCards[ndx]);
+			oCards.RemoveAt(ndx);
+		}
+		oCards = tCards;
+	}
 } // Deck class
