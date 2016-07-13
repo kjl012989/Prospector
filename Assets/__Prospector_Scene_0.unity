@@ -610,7 +610,7 @@ GUIText:
   m_GameObject: {fileID: 969704631}
   m_Enabled: 1
   serializedVersion: 3
-  m_Text: 
+  m_Text: 0
   m_Anchor: 5
   m_Alignment: 2
   m_PixelOffset: {x: -10, y: 0}
