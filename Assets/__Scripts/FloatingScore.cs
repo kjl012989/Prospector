@@ -22,7 +22,6 @@ public class FloatingScore : MonoBehaviour {
 		set{
 			_score = value;
 			scoreString = Utils.AddCommasToNumber(_score);
-			GetComponent<GUIText>().text = scoreString;
 		}
 	}
 	public List<Vector3> bezierPts;
